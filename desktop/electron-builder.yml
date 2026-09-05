@@ -1,0 +1,15 @@
+appId: com.nexa.ai
+productName: Nexa AI
+directories:
+  output: release
+files:
+  - dist/**
+  - electron/**
+win:
+  target:
+    - nsis
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
