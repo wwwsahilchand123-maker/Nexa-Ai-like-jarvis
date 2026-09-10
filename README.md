@@ -1,40 +1,95 @@
-# NEXA AI — Advanced Windows Desktop AI Agent
+<div align="center">
 
-NEXA AI is a modular Windows desktop AI voice-agent foundation built from the supplied specification. It is designed for natural Hindi/Hinglish/English commands, controlled Windows automation, file intelligence, browser automation, system monitoring, local memory, automations, command history, permissions, and a premium desktop UI.
+<img src="assets/README-banner.svg" width="100%" alt="NEXA AI" />
 
-## Important
-The supplied attachment is a **project specification, not source code**. This package converts that specification into an organized, runnable project foundation. External AI/STT/TTS providers still require the user's own credentials/configuration.
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Electron](https://img.shields.io/badge/Electron-Desktop-47848F?style=for-the-badge&logo=electron&logoColor=white)](https://www.electronjs.org/)
+[![React](https://img.shields.io/badge/React-UI-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Agent-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 
-## Stack
-- Desktop: Electron + React + TypeScript + Vite
-- UI: Tailwind CSS + Framer Motion
-- Agent service: Python + FastAPI + WebSocket
-- Storage: SQLite
-- Browser automation: Playwright
-- Windows automation: Python subprocess / psutil / pyautogui where configured
-- Validation: Pydantic
-- Tests: pytest + Vitest
+### 🤖 Listen → Think → Act → Report
 
-## Requirements
+**A modular Windows desktop AI-agent foundation for voice commands, controlled automation, memory, file intelligence and system tools.**
+
+</div>
+
+---
+
+## 🧠 What is NEXA AI?
+
+NEXA AI is a modular Windows desktop AI voice-agent foundation designed for natural Hindi/Hinglish/English commands, controlled Windows automation, file intelligence, browser automation, system monitoring, local memory, automations, command history, permissions and a premium desktop UI.
+
+> The supplied project is a structured foundation. External AI/STT/TTS providers require the user's own credentials and configuration.
+
+## ✨ Capabilities
+
+- 🎙️ Hindi / Hinglish / English command flow
+- 🖥️ Windows desktop interface
+- 🧠 Local memory and command history
+- 📁 File intelligence and search
+- 🌐 Browser automation
+- ⚙️ Controlled Windows automation
+- 📊 System monitoring
+- 🔌 Extensible tool registry
+- 🔐 Permission-aware tool execution
+- 🎭 Demo mode with deterministic local provider
+
+## ⚡ Agent Flow
+
+```mermaid
+flowchart LR
+ A[Voice / Text Command] --> B[Agent]
+ B --> C[Intent + Tool Routing]
+ C --> D{Permission}
+ D -->|Safe| E[Execute]
+ D -->|Sensitive| F[Confirm]
+ D -->|Destructive| G[Block / Confirm]
+ F --> E
+ E --> H[Result]
+ H --> I[Memory / History]
+ I --> J[Response]
+```
+
+## 🛡️ Safety Model
+
+| Permission | Behaviour |
+|---|---|
+| SAFE | Can run automatically |
+| SENSITIVE | Configurable confirmation |
+| DESTRUCTIVE | Confirmation required |
+
+The terminal tool uses an allowlist by default. Do not disable the security layer just to make the demo appear more capable.
+
+## 🛠️ Stack
+
+**Desktop:** Electron • React • TypeScript • Vite  
+**UI:** Tailwind CSS • Framer Motion  
+**Agent:** Python • FastAPI • WebSocket  
+**Storage:** SQLite  
+**Automation:** Playwright • Python subprocess / psutil / pyautogui where configured  
+**Validation:** Pydantic  
+**Tests:** pytest • Vitest
+
+## 🚀 Requirements
+
 - Windows 11
 - Node.js 20+
 - Python 3.11+
 - npm
-- Optional: Git, Docker, VS Code
-- Optional: Playwright browser binaries
+- Optional Git / Docker / VS Code
+- Optional Playwright browser binaries
 
-## Quick Start (1-Click Run)
+## ⚡ Quick Start
 
-### Windows 1-Click Launch:
-Simply double-click:
-- **`START_NEXA.bat`** in the root folder: Automatically starts the Python FastAPI backend and launches the Electron desktop application.
-- **`START_WEB.bat`**: Starts the backend and opens the Web interface directly in your browser.
+### One-click Windows launch
 
----
+- `START_NEXA.bat` — starts the Python backend and launches the Electron application.
+- `START_WEB.bat` — starts the backend and opens the web interface.
 
-## Manual Quick start
+### Manual setup
 
-### 1. Backend
+Backend:
+
 ```powershell
 cd backend
 python -m venv .venv
@@ -44,85 +99,77 @@ copy .env.example .env
 uvicorn app.main:app --host 127.0.0.1 --port 8765
 ```
 
-### 2. Frontend/Desktop
-In another terminal:
+Desktop:
+
 ```powershell
 cd desktop
 npm install
-npm run dev
-```
-
-For Electron + Vite development, use:
-```powershell
 npm run electron:dev
 ```
 
-### 3. Production
+Production build:
+
 ```powershell
-cd desktop
 npm run build
 npm run dist
 ```
 
-The installer configuration is in `desktop/electron-builder.yml`.
+## 🔌 AI / Voice Providers
 
-## AI / Voice providers
-Provider interfaces are intentionally abstracted:
+Provider interfaces are separated into:
+
 - `backend/app/providers/ai.py`
 - `backend/app/providers/stt.py`
 - `backend/app/providers/tts.py`
 
-The default demo provider is deterministic and local so the app can run without an API key. Add a real provider behind the same interface rather than hard-coding credentials.
+The default demo provider is deterministic and local so the application can run without an API key.
 
-## Safety
-Tools are permissioned:
-- SAFE: automatic
-- SENSITIVE: configurable confirmation
-- DESTRUCTIVE: confirmation required
+## 📁 Project Structure
 
-The terminal tool uses an allowlist by default. Do not disable the security layer just to make the demo appear more capable.
-
-## Project layout
 ```text
-nexa-ai/
-  desktop/
-    src/
-    electron/
-    package.json
-    electron-builder.yml
-  backend/
-    app/
-      agent/
-      api/
-      automation/
-      memory/
-      providers/
-      security/
-      storage/
-      tools/
-      voice/
-    tests/
-    requirements.txt
-  docs/
-  scripts/
-  .env.example
-  .gitignore
+Nexa-Ai-like-jarvis/
+├── desktop/
+│   ├── src/
+│   ├── electron/
+│   └── package.json
+├── backend/
+│   ├── app/
+│   │   ├── agent/
+│   │   ├── api/
+│   │   ├── automation/
+│   │   ├── memory/
+│   │   ├── providers/
+│   │   ├── security/
+│   │   ├── storage/
+│   │   └── tools/
+│   ├── tests/
+│   └── requirements.txt
+├── docs/
+├── scripts/
+└── .env.example
 ```
 
-## First run
-Open the app, choose Demo Mode if you do not have providers configured, and test:
-- "Chrome kholo"
-- "System status bata"
-- "Downloads mein PDFs dhund"
-- "Git status check kar"
+## 🧪 Demo Commands
 
-The demo agent routes these to real local tools where available and simulates unsafe actions.
+Try commands such as:
 
-## Adding tools
-Implement the `Tool` protocol in `backend/app/tools/base.py`, register the tool in `backend/app/tools/registry.py`, and define its permission level.
+```text
+Chrome kholo
+System status bata
+Downloads mein PDFs dhund
+Git status check kar
+```
 
-## Troubleshooting
-If Chrome/VS Code is not found, use the full executable path in `backend/app/config.py` or configure PATH. If microphone access is unavailable, use push-to-talk or configure an STT provider.
+## 🔐 Security Note
 
-## Security note
-Never commit `.env`, API keys, access tokens, cookies, browser profiles, or private credentials.
+Never commit `.env`, API keys, access tokens, cookies, browser profiles or private credentials.
+
+---
+
+<div align="center">
+
+### 🤖 Build an assistant that can act — safely.
+
+**Built by Sahil Chand**
+
+</div>
