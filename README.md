@@ -2,24 +2,42 @@
 
 <img src="assets/README-banner.svg" width="100%" alt="NEXA AI" />
 
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=21&pause=850&color=42E8A3&center=true&vCenter=true&width=860&lines=LISTEN+%E2%86%92+THINK+%E2%86%92+ACT+%E2%86%92+REPORT;Windows+AI+Agent;Voice+%7C+Memory+%7C+Tools+%7C+Automation;Powerful+actions.+Controlled+permissions." alt="Typing animation" />
+
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Electron](https://img.shields.io/badge/Electron-Desktop-47848F?style=for-the-badge&logo=electron&logoColor=white)](https://www.electronjs.org/)
 [![React](https://img.shields.io/badge/React-UI-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Agent-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 
-### 🤖 Listen → Think → Act → Report
+### 🤖 NEXA AI — A Controlled Windows AI-Agent Foundation
 
-**A modular Windows desktop AI-agent foundation for voice commands, controlled automation, memory, file intelligence and system tools.**
+**A modular desktop assistant for voice commands, memory, file intelligence, browser automation and permission-aware tools.**
 
 </div>
 
 ---
 
-## 🧠 What is NEXA AI?
+## 🧠 What is NEXA?
 
-NEXA AI is a modular Windows desktop AI voice-agent foundation designed for natural Hindi/Hinglish/English commands, controlled Windows automation, file intelligence, browser automation, system monitoring, local memory, automations, command history, permissions and a premium desktop UI.
+NEXA is designed around a simple principle: an AI agent should not only generate a response — it should **decide what tool to use, respect permissions, execute controlled actions and report the result.**
 
-> The supplied project is a structured foundation. External AI/STT/TTS providers require the user's own credentials and configuration.
+External AI/STT/TTS providers require your own credentials and configuration.
+
+## ⚡ Agent Loop
+
+```mermaid
+flowchart LR
+ A[Voice / Text] --> B[Agent]
+ B --> C[Intent + Tool Routing]
+ C --> D{Permission}
+ D -->|SAFE| E[Execute]
+ D -->|SENSITIVE| F[Confirm]
+ D -->|DESTRUCTIVE| G[Block / Confirm]
+ F --> E
+ E --> H[Result]
+ H --> I[Memory / History]
+ I --> J[Response]
+```
 
 ## ✨ Capabilities
 
@@ -31,64 +49,37 @@ NEXA AI is a modular Windows desktop AI voice-agent foundation designed for natu
 - ⚙️ Controlled Windows automation
 - 📊 System monitoring
 - 🔌 Extensible tool registry
-- 🔐 Permission-aware tool execution
-- 🎭 Demo mode with deterministic local provider
+- 🔐 Permission-aware execution
+- 🎭 Deterministic local demo mode
 
-## ⚡ Agent Flow
+## 🛡️ Permission Model
 
-```mermaid
-flowchart LR
- A[Voice / Text Command] --> B[Agent]
- B --> C[Intent + Tool Routing]
- C --> D{Permission}
- D -->|Safe| E[Execute]
- D -->|Sensitive| F[Confirm]
- D -->|Destructive| G[Block / Confirm]
- F --> E
- E --> H[Result]
- H --> I[Memory / History]
- I --> J[Response]
-```
-
-## 🛡️ Safety Model
-
-| Permission | Behaviour |
+| Level | Behaviour |
 |---|---|
-| SAFE | Can run automatically |
-| SENSITIVE | Configurable confirmation |
-| DESTRUCTIVE | Confirmation required |
+| 🟢 SAFE | Can run automatically |
+| 🟡 SENSITIVE | Confirmation can be required |
+| 🔴 DESTRUCTIVE | Confirmation required / blocked by policy |
 
-The terminal tool uses an allowlist by default. Do not disable the security layer just to make the demo appear more capable.
+The terminal tool uses an allowlist by default. **Do not remove the safety layer just to make the demo appear more capable.**
 
-## 🛠️ Stack
+## 🧰 Stack
 
 **Desktop:** Electron • React • TypeScript • Vite  
 **UI:** Tailwind CSS • Framer Motion  
 **Agent:** Python • FastAPI • WebSocket  
 **Storage:** SQLite  
-**Automation:** Playwright • Python subprocess / psutil / pyautogui where configured  
+**Automation:** Playwright • psutil • pyautogui where configured  
 **Validation:** Pydantic  
 **Tests:** pytest • Vitest
 
-## 🚀 Requirements
+## 🚀 Quick Start
 
-- Windows 11
-- Node.js 20+
-- Python 3.11+
-- npm
-- Optional Git / Docker / VS Code
-- Optional Playwright browser binaries
+### Windows launcher
 
-## ⚡ Quick Start
-
-### One-click Windows launch
-
-- `START_NEXA.bat` — starts the Python backend and launches the Electron application.
+- `START_NEXA.bat` — starts the backend and launches Electron.
 - `START_WEB.bat` — starts the backend and opens the web interface.
 
 ### Manual setup
-
-Backend:
 
 ```powershell
 cd backend
@@ -107,24 +98,19 @@ npm install
 npm run electron:dev
 ```
 
-Production build:
-
-```powershell
-npm run build
-npm run dist
-```
-
-## 🔌 AI / Voice Providers
+## 🔌 Provider Layer
 
 Provider interfaces are separated into:
 
-- `backend/app/providers/ai.py`
-- `backend/app/providers/stt.py`
-- `backend/app/providers/tts.py`
+```text
+backend/app/providers/ai.py
+backend/app/providers/stt.py
+backend/app/providers/tts.py
+```
 
-The default demo provider is deterministic and local so the application can run without an API key.
+The default demo provider is local and deterministic, so the foundation can be explored without an external API key.
 
-## 📁 Project Structure
+## 📁 Project Map
 
 ```text
 Nexa-Ai-like-jarvis/
@@ -151,8 +137,6 @@ Nexa-Ai-like-jarvis/
 
 ## 🧪 Demo Commands
 
-Try commands such as:
-
 ```text
 Chrome kholo
 System status bata
@@ -160,15 +144,29 @@ Downloads mein PDFs dhund
 Git status check kar
 ```
 
-## 🔐 Security Note
+## 🔐 Security Checklist
 
-Never commit `.env`, API keys, access tokens, cookies, browser profiles or private credentials.
+- Keep `.env` out of Git.
+- Never commit API keys, cookies or browser profiles.
+- Keep sensitive/destructive tools behind explicit permissions.
+- Bind local services to `127.0.0.1` unless remote access is intentionally configured.
+
+## 🗺️ Roadmap
+
+- [x] Modular agent architecture
+- [x] Tool registry
+- [x] Permission-aware execution
+- [x] Local memory / history
+- [x] Desktop UI
+- [ ] More provider integrations
+- [ ] Expanded evaluation suite
+- [ ] Stronger sandboxing for external actions
 
 ---
 
 <div align="center">
 
-### 🤖 Build an assistant that can act — safely.
+### 🤖 THINK SMART · ACT SAFELY
 
 **Built by Sahil Chand**
 
