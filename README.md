@@ -144,9 +144,12 @@ Downloads mein PDFs dhund
 Git status check kar
 ```
 
-## 🔐 Security Checklist
+## 🔐 Security & Privacy Checklist
 
 - Keep `.env` out of Git.
+- Treat command history, memory, browser state and indexed file metadata as potentially sensitive user data.
+- Keep tool execution logs free of API keys, access tokens, passwords and full file contents.
+- Require explicit confirmation before actions that delete data, publish content, change system settings or access sensitive accounts.
 - Never commit API keys, cookies or browser profiles.
 - Keep sensitive/destructive tools behind explicit permissions.
 - Bind local services to `127.0.0.1` unless remote access is intentionally configured.
