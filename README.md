@@ -174,3 +174,17 @@ Git status check kar
 **Built by Sahil Chand**
 
 </div>
+
+---
+
+## 🛡️ Tool Safety
+
+NEXA treats tool execution as a privileged boundary between natural-language requests and system actions.
+
+- Validate tool arguments before execution.
+- Keep sensitive and destructive tools behind explicit permissions.
+- Never pass raw user text directly into shell, filesystem or database operations.
+- Keep API keys, cookies, passwords and browser profiles out of logs and Git.
+- Bind local services to 127.0.0.1 unless remote access is intentionally required.
+
+See [Tool Safety Guide](docs/TOOL_SAFETY_GUIDE.md) and [Product Requirements](docs/PRD.md) for the detailed requirements.
